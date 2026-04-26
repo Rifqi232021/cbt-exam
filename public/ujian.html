@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujian</title>
+    <link rel="stylesheet" href="style-ujian.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="haha.jpeg" alt="Logo">
+            <div class="test-info">
+                <span class="test-title">GASSSSSS BANTAIII</span>
+                <span class="subject">Subtes: Tes Potensi Skolastik</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="timer-box">
+                <span>SISA WAKTU</span>
+                <h2 id="timer">00:45:00</h2>
+            </div>
+            <div class="user-profile">
+                <i class="fas fa-user-circle"></i>
+                <span>PESERTA 01</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="question-section">
+            <div class="question-card">
+                <div class="question-header">
+                    <span id="q-number-title">SOAL NOMOR 1</span>
+                    <div class="font-zoom">
+                        Ukuran font: <span class="zoom-btn" onclick="changeFontSize('small')">A</span> 
+                        <span class="zoom-btn" onclick="changeFontSize('medium')">A</span> 
+                        <span class="zoom-btn" onclick="changeFontSize('large')">A</span>
+                    </div>
+                </div>
+                
+                <div class="question-content" id="q-content">
+                    <p id="question-text">Memuat soal...</p>
+                    <div id="options-list">
+                        </div>
+                </div>
+
+                <div class="question-footer">
+                    <button id="btn-prev" onclick="navSoal(-1)">SOAL SEBELUMNYA</button>
+                    <button id="btn-next" onclick="navSoal(1)">SOAL BERIKUTNYA</button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <h3>NOMOR SOAL</h3>
+            <div class="grid-numbers" id="grid-numbers">
+                </div>
+            <div class="legend">
+                <div class="item"><span class="box blue"></span> Selesai</div>
+                <div class="item"><span class="box white"></span> Belum</div>
+            </div>
+        </aside>
+    </main>
+
+    <script src="/script.js"></script>
+</body>
+</html>

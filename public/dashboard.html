@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Peserta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .dashboard-card {
+            background: white;  
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .logo-area {
+            margin-bottom: 20px;
+        }
+
+        .logo-area img {
+            width: 100px;
+            border-radius: 10px;
+        }
+
+        .dashboard-card h1 {
+            color: #333;
+            margin: 20px 0 10px;
+            font-size: 28px;
+        }
+
+        .welcome-text {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .exam-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+            border-left: 4px solid #667eea;
+        }
+
+        .exam-info p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .exam-info label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .btn-start-exam {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .btn-start-exam:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-start-exam:active {
+            transform: translateY(0);
+        }
+
+        .btn-logout {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: #ff5252;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #667eea;
+        }
+
+        .user-profile i {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-card">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo">
+            </div>
+
+            <h1>FOKUSIN</h1>
+            <p style="color: #999; margin-bottom: 20px;">UJIAN ONLINE</p>
+
+            <div class="user-profile">
+                <i class="fas fa-user-circle"></i>
+                <span id="welcomeText">Halo Peserta</span>
+            </div>
+
+            <div class="exam-info">
+                <p id="examInfo">Siap untuk memulai ujian</p>
+            </div>
+
+            <button id="startTestBtn" class="btn-start-exam">
+                <i class="fas fa-play"></i> MULAI UJIAN
+            </button>
+
+            <button class="btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> KELUAR
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api/test';
+
+        function initDashboard() {
+            const nama = localStorage.getItem('namaPeserta');
+            const jenis = localStorage.getItem('jenisUjian');
+            const sekolah = localStorage.getItem('sekolah');
+
+            if (!nama) {
+                window.location.href = '/index.html';
+                return;
+            }
+
+            const welcomeText = document.getElementById('welcomeText');
+            const examInfo = document.getElementById('examInfo');
+            const startButton = document.getElementById('startTestBtn');
+
+            if (welcomeText) {
+                welcomeText.innerText = `Halo ${nama.toUpperCase()}, selamat datang di ujian ${jenis.toUpperCase()}`;
+            }
+
+            if (examInfo) {
+                examInfo.innerText = `Sekolah: ${sekolah} | Jenis Ujian: ${jenis.toUpperCase()}`;
+            }
+
+            if (startButton) {
+                startButton.addEventListener('click', () => {
+                    window.location.href = '/ujian.html';
+                });
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('namaPeserta');
+            localStorage.removeItem('jenisUjian');
+            localStorage.removeItem('sekolah');
+            localStorage.removeItem('studentToken');
+            localStorage.removeItem('studentId');
+            window.location.href = '/index.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>

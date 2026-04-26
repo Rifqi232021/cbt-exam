@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Peserta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-area">
+                <img src="logo.png" style="width: 130px; border-radius: 10px;">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                
+            </div>
+            
+            <h1>FOKUSIN</h1>
+            <p class="subtitle">UJIAN ONLINE</p>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>Jenis Ujian</label>
+                    <select id="jenisUjian" required>
+                        <option value="" disabled selected>Pilih Jenis Ujian</option>
+                        <option value="uts">UTS</option>
+                        <option value="uas">UAS</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Nama Peserta</label>
+                    <input type="text" id="nama" placeholder="Ketik nama lengkap" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Asal Sekolah</label>
+                    <select id="sekolah" required>
+                        <option value="" disabled selected>Pilih Sekolah</option>
+                        <option value="smk1">SMK Negeri 1 Muara Enim</option>
+                        <option value="sma4">SMA Negeri 4 Palembang</option>
+                        <option value="sma8">SMA Negeri 8 Palembang</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Token Ujian</label>
+                    <input type="text" id="token" placeholder="Masukkan Token" required>
+                </div>
+
+                <button type="submit" class="btn-login">MASUK KE SISTEM</button>
+            </form>
+
+            <footer>
+                <p>&copy; 2026 Teknik Elektro</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+    if (window.location.protocol === 'file:') {
+        alert('Silakan buka halaman ini melalui server Laravel, misalnya http://127.0.0.1:8000/index.html, bukan langsung dari file.');
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const jenisUjian = document.getElementById('jenisUjian').value;
+        const nama = document.getElementById('nama').value.trim();
+        const sekolah = document.getElementById('sekolah').value;
+        const token = document.getElementById('token').value.trim();
+        const btnLogin = document.querySelector('.btn-login');
+
+        if (!jenisUjian || !nama || !sekolah || !token) {
+            alert('Semua field harus diisi.');
+            return;
+        }
+
+        if (token !== '232021') {
+            alert('Token ujian salah. Gunakan 232021.');
+            return;
+        }
+
+        btnLogin.innerText = 'MOHON TUNGGU...';
+        btnLogin.disabled = true;
+
+        try {
+            const response = await fetch('/api/test/start', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ jenis_ujian: jenisUjian, nama, sekolah, token }),
+            });
+
+            const text = await response.text();
+            let data = {};
+            try {
+                data = JSON.parse(text);
+            } catch (parseError) {
+                throw new Error('Server tidak mengembalikan JSON: ' + text);
+            }
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Gagal memulai ujian.');
+            }
+
+            localStorage.setItem('namaPeserta', nama);
+            localStorage.setItem('jenisUjian', jenisUjian);
+            localStorage.setItem('sekolah', sekolah);
+            localStorage.setItem('studentToken', token);
+            localStorage.setItem('studentId', data.student_id || '');
+            localStorage.setItem('sessionToken', data.session_token || '');
+
+            window.location.href = '/dashboard.html';
+        } catch (error) {
+            alert(error.message);
+            btnLogin.innerText = 'MASUK KE SISTEM';
+            btnLogin.disabled = false;
+        }
+    });
+    </script>
+
+    <div class="top-nav">
+    <button class="btn-admin-top" onclick="openAdminModal()">
+        <i class="fas fa-user-shield"></i> Login Admin
+    </button>
+</div>
+
+<div class="login-container">
+    </div>
+
+<div id="adminModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAdminModal()">&times;</span>
+        <h2>LOGIN ADMIN</h2>
+        <form id="adminLoginForm">
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" id="adminUser" placeholder="Username Admin" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="adminPass" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-login-admin">Masuk Dashboard</button>
+        </form>
+        <p style="margin-top:15px; font-size: 12px; color: #1a73e8; cursor: pointer;" onclick="closeAdminModal()">Kembali</p>
+    </div>
+</div>
+
+<script>
+    // Fungsi untuk menampilkan modal admin
+    function openAdminModal() {
+        console.log("Tombol Admin Diklik"); 
+        document.getElementById("adminModal").style.display = "block";
+    }
+
+    // Fungsi untuk menutup modal admin
+    function closeAdminModal() {
+        document.getElementById("adminModal").style.display = "none";
+    }
+
+    // Menutup modal otomatis jika user klik area hitam di luar kotak
+    window.onclick = function(event) {
+        const modal = document.getElementById("adminModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Script Login Admin (Arahkan ke Laravel admin dashboard)
+    document.getElementById('adminLoginForm').onsubmit = function(e) {
+        e.preventDefault();
+        const user = document.getElementById('adminUser').value;
+        const pass = document.getElementById('adminPass').value;
+
+        if(user === "admin" && pass === "admin123") {
+            window.location.href = "/admin/dashboard";
+        } else {
+            alert("Login Gagal! Username atau Password salah.");
+        }
+    };
+</script>
+    
+</body>
+</html>

@@ -1,0 +1,140 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { background-color: #f0f2f5; }
+
+header {
+    background-color: #2c3e50; color: white;
+    display: flex; justify-content: space-between;
+    padding: 10px 40px; align-items: center; border-bottom: 4px solid #f1c40f;
+}
+
+.header-left { display: flex; align-items: center; gap: 15px; }
+.header-left img { width: 60px; }
+.test-title { font-weight: bold; display: block; }
+.subject { font-size: 12px; color: #bdc3c7; }
+
+.timer-box { text-align: center; background: #c0392b; padding: 5px 15px; border-radius: 5px; }
+.timer-box span { font-size: 10px; }
+
+.main-container { display: flex; padding: 20px; gap: 20px; max-width: 1400px; margin: auto; }
+
+/* Area Soal */
+.question-section { flex: 3; }
+.question-card { background: white; border-radius: 5px; border: 1px solid #ddd; height: 100%; display: flex; flex-direction: column; }
+.question-header { background: #f8f9fa; padding: 15px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; font-weight: bold; }
+.question-content { padding: 30px; flex-grow: 1; min-height: 300px; }
+.font-zoom span { cursor: pointer; margin-left: 10px; padding: 2px 8px; border: 1px solid #ccc; background: white; }
+
+/* Pilihan Jawaban */
+.option { display: flex; align-items: center; padding: 12px; border: 1px solid #eee; margin-top: 10px; cursor: pointer; border-radius: 4px; }
+.option:hover { background: #f1f9ff; }
+.option.selected { background: #3498db; color: white; border-color: #2980b9; }
+.opt-letter { font-weight: bold; margin-right: 15px; border: 1px solid #ddd; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: white; color: #333; }
+
+/* Footer Tombol */
+.question-footer { padding: 20px; background: #f8f9fa; display: flex; justify-content: space-between; }
+button { padding: 12px 25px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+#btn-prev { background: #95a5a6; color: white; }
+#btn-ragu { background: #f1c40f; color: black; }
+#btn-next { background: #2980b9; color: white; }
+
+/* Sidebar Nomor */
+.sidebar { flex: 1; background: white; padding: 20px; border: 1px solid #ddd; border-radius: 5px; height: fit-content; }
+.grid-numbers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
+.num-box { height: 40px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s; }
+.num-box.active { border: 3px solid #3498db; }
+.num-box.done { background: #3498db; color: white; }
+.num-box.warning { background: #f1c40f; color: black; }
+
+.legend { margin-top: 20px; font-size: 12px; }
+.legend .item { display: flex; align-items: center; margin-bottom: 5px; }
+.box { width: 15px; height: 15px; margin-right: 10px; border: 1px solid #ccc; }
+.blue { background: #3498db; } .yellow { background: #f1c40f; } .white { background: white; }
+
+/* Untuk layar dengan lebar maksimal 600px (seperti HP) */
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .container {
+    width: 100%; /* Menggunakan lebar penuh layar */
+    padding: 10px;
+  }
+}
+
+.review-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 9999;
+}
+
+.review-card {
+    background: #ffffff;
+    width: min(90%, 680px);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.review-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.review-close {
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.review-list {
+    max-height: 320px;
+    overflow-y: auto;
+    margin-top: 16px;
+}
+
+.review-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.review-item.answered {
+    background: #eaf8ef;
+}
+
+.review-item.unanswered {
+    background: #fff2e8;
+}
+
+.review-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.btn-submit-review {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
