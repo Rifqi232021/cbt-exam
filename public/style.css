@@ -108,7 +108,7 @@ input:focus, select:focus {
     margin-top: 20px;
 }
 
-/* --- BAGIAN MODAL ADMIN (POP-UP) --- */
+
 .modal {
     display: none; 
     position: fixed;

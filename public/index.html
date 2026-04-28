@@ -151,18 +151,18 @@
 </div>
 
 <script>
-    // Fungsi untuk menampilkan modal admin
+   
     function openAdminModal() {
         console.log("Tombol Admin Diklik"); 
         document.getElementById("adminModal").style.display = "block";
     }
 
-    // Fungsi untuk menutup modal admin
+    
     function closeAdminModal() {
         document.getElementById("adminModal").style.display = "none";
     }
 
-    // Menutup modal otomatis jika user klik area hitam di luar kotak
+    
     window.onclick = function(event) {
         const modal = document.getElementById("adminModal");
         if (event.target == modal) {
@@ -170,7 +170,7 @@
         }
     }
 
-    // Script Login Admin (Arahkan ke Laravel admin dashboard)
+   
     document.getElementById('adminLoginForm').onsubmit = function(e) {
         e.preventDefault();
         const user = document.getElementById('adminUser').value;
