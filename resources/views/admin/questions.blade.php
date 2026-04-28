@@ -25,16 +25,12 @@
         <main>
             <div class="page-card">
                 <h2>Daftar Soal</h2>
-                @if(session('success'))
-                    <div class="alert">{{ session('success') }}</div>
-                @endif
                 <table>
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Pertanyaan</th>
                             <th>Jawaban Benar</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,39 +39,10 @@
                             <td>{{ $question->id }}</td>
                             <td>{{ Str::limit($question->question_text, 80) }}</td>
                             <td>{{ $question->correct_answer }}</td>
-                            <td><a href="#">Edit</a> | <a href="#">Hapus</a></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-
-            <div class="page-card">
-                <h2>Tambah Soal Baru</h2>
-                <form action="/admin/questions" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label>Pertanyaan</label>
-                        <textarea name="question_text" rows="4" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Opsi (pisahkan dengan koma atau gunakan JSON)</label>
-                        <input type="text" name="options" placeholder="A, B, C, D" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Jawaban Benar</label>
-                        <input type="text" name="correct_answer" placeholder="A" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Subjek (opsional)</label>
-                        <input type="text" name="subject" placeholder="Matematika">
-                    </div>
-                    <div class="form-group">
-                        <label>Tingkat Kesulitan (opsional)</label>
-                        <input type="text" name="difficulty" placeholder="Mudah / Sedang / Sulit">
-                    </div>
-                    <button type="submit" class="btn-primary">Tambah Soal</button>
-                </form>
             </div>
         </main>
     </div>

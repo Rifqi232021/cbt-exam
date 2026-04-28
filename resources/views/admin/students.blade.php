@@ -25,9 +25,6 @@
         <main>
             <div class="page-card">
                 <h2>Daftar Siswa</h2>
-                @if(session('success'))
-                    <div class="alert">{{ session('success') }}</div>
-                @endif
                 <table>
                     <thead>
                         <tr>
@@ -50,34 +47,6 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-
-            <div class="page-card">
-                <h2>Tambah Siswa Baru</h2>
-                <form action="/admin/students" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" name="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Sekolah</label>
-                        <input type="text" name="school" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Jenis Ujian</label>
-                        <select name="exam_type" required>
-                            <option value="uts">UTS</option>
-                            <option value="uas">UAS</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Token</label>
-                        <input type="text" name="token" required>
-                    </div>
-                    <button type="submit" class="btn-primary">Tambah Siswa</button>
-                </form>
             </div>
         </main>
     </div>
