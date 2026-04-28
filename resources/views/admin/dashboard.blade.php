@@ -9,7 +9,10 @@
 <body>
     <div class="admin-container">
         <header>
-            <h1>ADMIN DASHBOARD - CBT SYSTEM</h1>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="/logo.png" alt="Logo" style="height: 50px; width: auto;">
+                <h1>ADMIN DASHBOARD </h1>
+            </div>
             <nav>
                 <a href="/admin/dashboard">Dashboard</a>
                 <a href="/admin/questions">Kelola Soal</a>
