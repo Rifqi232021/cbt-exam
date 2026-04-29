@@ -16,13 +16,11 @@ class Student extends Model
         'token',
     ];
 
-    // Relationship with results
     public function results()
     {
         return $this->hasMany(Result::class);
     }
 
-    // Relationship with answers
     public function answers()
     {
         return $this->hasMany(Answer::class);
